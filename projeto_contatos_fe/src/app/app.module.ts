@@ -7,7 +7,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
-import { ContactComponent } from './interfaces/contact/contact.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { RouterModule } from '@angular/router';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { ContactComponent } from './interfaces/contact/contact.component';
     FooterComponent,
     NavbarComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

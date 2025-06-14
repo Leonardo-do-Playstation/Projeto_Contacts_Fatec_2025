@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+  title = "Sistema de gerenciamento de contatos.";
 }

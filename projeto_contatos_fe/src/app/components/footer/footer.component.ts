@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-
+  title = "Sistema de gerenciamento de contatos. Todos os direitos reservados.";
 }
