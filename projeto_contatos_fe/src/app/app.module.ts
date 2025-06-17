@@ -10,6 +10,9 @@ import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { RouterModule } from '@angular/router';
 import { FavoritesComponent } from './components/favorites/favorites.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ContactsComponent } from './components/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +22,15 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
     NavbarComponent,
     HomeComponent,
     ContactComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    ContactsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    FormsModule, 
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

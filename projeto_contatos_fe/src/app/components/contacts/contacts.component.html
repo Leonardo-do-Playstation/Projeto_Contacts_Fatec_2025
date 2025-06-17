@@ -1,8 +1,53 @@
 <div class="container mt-4">
-    <div class="card shadow-sm">
-    <div class="card-body">
-      <h1 class="card-title">Contatos</h1>
-      <p class="card-text">{{title}}</p>
-    </div>
+  <h2>{{ title }}</h2>
+
+  <div class="mb-3">
+    <label for="categoryFilter" class="form-label">Filtrar por Categoria:</label>
+    <select
+      id="categoryFilter"
+      class="form-select"
+      [(ngModel)]="selectedCategoryId"
+      name="categoryFilter"
+    >
+      <option [value]="0">Todas as categorias</option>
+      <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+    </select>
   </div>
-</div>
+
+  <table class="table table-hover table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>E-mail</th>
+        <th>Categoria</th>
+        <th>Empresa</th>
+        <th>Cargo</th>
+        <th>Favorito</th>
+        <th>Observações</th>
+        <th>Observações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of filteredContacts">
+        <td>{{ c.name }}</td>
+        <td>{{ c.phone }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.category.name }}</td>
+        <td>{{ c.company }}</td>
+        <td>{{ c.position }}</td>
+        <td>
+          <span *ngIf="c.favorite" class="text-warning">&#9733;</span>
+          <span *ngIf="!c.favorite" class="text-muted">&#9734;</span>
+        </td>
+        <td>{{ c.notes }}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="onEdit(c)">Editar</button>
+          <button class="btn btn-sm btn-outline-warning" (click)="onToggleFavorite(c)">
+            {{ c.favorite ? 'Desfavoritar' : 'Favoritar' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr/>

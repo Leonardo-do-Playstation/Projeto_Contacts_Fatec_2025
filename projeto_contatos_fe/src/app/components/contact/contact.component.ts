@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Contact } from '../../interfaces/Contact';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from '../../interfaces/Category';
-import { CategoryService } from '../../services/category.service';
-import { ContactService } from '../../services/contact.service';
+import { Contact } from '../../interfaces/Contact';
 
 @Component({
   selector: 'app-contact',
-  standalone: false,
   templateUrl: './contact.component.html',
-  styleUrl: './contact.component.css'
+  styleUrl: './contact.component.css',
+  standalone: false
 })
-export class ContactComponent{
- 
+export class ContactComponent {
+  @Input() contact: Contact = {} as Contact;
+  @Input() categories: Category[] = [];
+
+  @Output() saveEventEmitter = new EventEmitter<Contact>();
+
+  save() {
+    this.saveEventEmitter.emit(this.contact);
+  }
 }

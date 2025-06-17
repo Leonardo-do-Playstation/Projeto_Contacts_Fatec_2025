@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ContactService } from '../../services/contact.service';
-import { Contact } from '../../interfaces/Contact';
+import { Component,} from '@angular/core';
 
 @Component({
   selector: 'app-favorites',
@@ -10,8 +8,7 @@ import { Contact } from '../../interfaces/Contact';
 })
 export class FavoritesComponent{
  title = "Aqui estão seus contatos marcados como favoritos para acesso rápido.";
-  
-}
+  }
 
 
 
