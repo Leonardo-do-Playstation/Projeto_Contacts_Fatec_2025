@@ -20,12 +20,13 @@
         <th>Nome</th>
         <th>Telefone</th>
         <th>E-mail</th>
+        <th>Data de nascimento</th>
         <th>Categoria</th>
         <th>Empresa</th>
         <th>Cargo</th>
         <th>Favorito</th>
         <th>Observações</th>
-        <th>Observações</th>
+        <th>Edição</th>
       </tr>
     </thead>
     <tbody>
@@ -33,6 +34,7 @@
         <td>{{ c.name }}</td>
         <td>{{ c.phone }}</td>
         <td>{{ c.email }}</td>
+        <td>{{ c.birthDate | date:'dd/MM/yyyy' }}</td>
         <td>{{ c.category.name }}</td>
         <td>{{ c.company }}</td>
         <td>{{ c.position }}</td>

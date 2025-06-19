@@ -14,7 +14,8 @@ export class ContactsComponent {
   categories: Category[] = [
     { id: 1, name: 'Família' },
     { id: 2, name: 'Trabalho' },
-    { id: 3, name: 'Amigos' }
+    { id: 3, name: 'Amigos' },
+    { id: 4, name: 'Outros'}
   ];
 
   selectedCategoryId: number = 0;
