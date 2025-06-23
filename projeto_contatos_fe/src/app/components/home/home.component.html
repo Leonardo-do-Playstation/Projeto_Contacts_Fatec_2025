@@ -2,11 +2,11 @@
   <div class="card shadow-sm">
     <div class="card-body">
       <h1 class="card-title">Página Inicial</h1>
-      <p class="card-text">Bem-vindo à página inicial do seu sistema de contatos.<br> Nessa aba você pode cadastrar todos os seus contatos, adicionar informações importantes e favorita-los.</p>
+      <p class="card-text">Bem-vindo à página inicial do seu sistema de gerenciamento de contatos. Nessa aba do seu sistema, você pode cadastra-los.
+      <br> <strong>Para cadastrar ou editar um contato, você terá que no mínimo ter inserido seu nome, telefone e sua categoria.</strong>
+      </p>
+      <app-contact [categories]="categories" (saveEventEmitter)="onSaveContact($event)"></app-contact>
     </div>
   </div>
 </div>
-<app-contact
-  [categories]="categories"
-  (saveEventEmitter)="onSaveContact($event)">
-</app-contact>
+

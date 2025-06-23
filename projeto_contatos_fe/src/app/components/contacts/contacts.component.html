@@ -1,14 +1,12 @@
 <div class="container mt-4">
-  <h2>{{ title }}</h2>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h1 class="card-title">Contatos</h1>
+      <p class="card-text">{{ title }}</p>
 
-  <div class="mb-3">
-    <label for="categoryFilter" class="form-label">Filtrar por Categoria:</label>
-    <select
-      id="categoryFilter"
-      class="form-select"
-      [(ngModel)]="selectedCategoryId"
-      name="categoryFilter"
-    >
+  <div class="mb-5">
+    <label for="categoryFilter" class="form-label mb-2">Filtrar por Categoria:</label>
+    <select id="categoryFilter" class="form-select" [(ngModel)]="selectedCategoryId" name="categoryFilter" [disabled]="selectedContact !== null">
       <option [ngValue]="0">Todas as categorias</option>
       <option *ngFor="let cat of categories" [ngValue]="cat.id">{{ cat.name }}</option>
     </select>
@@ -22,29 +20,15 @@
   </div>
 
   <div class="accordion" id="contactsAccordion">
-    <div
-      class="accordion-item mb-2"
-      *ngFor="let c of filteredContacts; let i = index"
-    >
+    <div class="accordion-item mb-2" *ngFor="let c of filteredContacts; let i = index">
       <h2 class="accordion-header" id="heading{{i}}">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          [attr.data-bs-target]="'#collapse' + i"
-          aria-expanded="false"
-          [attr.aria-controls]="'collapse' + i"
-        >
-          {{ c.name }} 
-          <span class="ms-2" *ngIf="c.favorite" title="Favorito" style="color: gold;">&#9733;</span>
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i" [disabled]="selectedContact !== null">
+        {{ c.name }} 
+        <span class="ms-2" *ngIf="c.favorite" title="Favorito" style="color: gold;">&#9733;</span>
         </button>
       </h2>
-      <div
-        [id]="'collapse' + i"
-        class="accordion-collapse collapse"
-        [attr.aria-labelledby]="'heading' + i"
-        data-bs-parent="#contactsAccordion"
-      >
+
+      <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#contactsAccordion">
         <div class="accordion-body">
           <p><strong>Telefone:</strong> {{ c.phone && c.phone.trim() ? c.phone.trim() : 'Dado não informado' }}</p>
           <p><strong>E-mail:</strong> {{ c.email && c.email.trim() ? c.email.trim() : 'Dado não informado' }}</p>
@@ -55,26 +39,25 @@
           <p><strong>Cargo:</strong> {{ c.position && c.position.trim() ? c.position.trim() : 'Dado não informado' }}</p>
           <p><strong>Observações:</strong> {{ c.notes && c.notes.trim() ? c.notes.trim() : 'Dado não informado' }}</p>
 
-          <button class="btn btn-sm btn-outline-primary me-2" (click)="onEdit(c)">Editar</button>
-          <button class="btn btn-sm btn-outline-warning" (click)="onToggleFavorite(c)">
-            {{ c.favorite ? 'Desfavoritar' : 'Favoritar' }}
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="onEdit(c)" [disabled]="selectedContact !== null">Editar</button>
+
+          <button class="btn btn-sm btn-outline-warning" (click)="onToggleFavorite(c)" [disabled]="selectedContact !== null">
+          {{ c.favorite ? 'Desfavoritar' : 'Favoritar' }}
           </button>
-          <button class="btn btn-sm btn-outline-danger ms-2" (click)="onDelete(c)">Remover</button>
+
+          <button class="btn btn-sm btn-outline-danger ms-2" (click)="onDelete(c)" [disabled]="selectedContact !== null">Remover</button>
         </div>
       </div>
     </div>
   </div>
 
-  <hr />
+  <hr/>
 
   <div *ngIf="selectedContact" class="alert alert-info">
     <strong>Modo edição:</strong> Você está editando o contato "{{ selectedContact.name }}".
   </div>
 
-  <app-contact
-    *ngIf="selectedContact"
-    [contact]="selectedContact"
-    [categories]="categories"
-    (saveEventEmitter)="onSave($event)">
-  </app-contact>
+      <app-contact *ngIf="selectedContact" [contact]="selectedContact" [categories]="categories"(saveEventEmitter)="onSave($event)"></app-contact>
+    </div>
+  </div>
 </div>

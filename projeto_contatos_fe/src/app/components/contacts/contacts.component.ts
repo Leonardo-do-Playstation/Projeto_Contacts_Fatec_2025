@@ -16,7 +16,7 @@ export class ContactsComponent implements OnInit {
   categories: Category[] = [];
 
   selectedCategoryId: number = 0;
-  selectedContact: Contact | null = null;  // Mudei para null quando não está editando
+  selectedContact: Contact | null = null;
 
   constructor(
     private contactService: ContactService,

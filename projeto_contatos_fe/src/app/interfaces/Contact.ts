@@ -3,14 +3,14 @@ import { Category } from "./Category";
 
 export interface Contact {
   id?: number;
-  name: string;
-  phone: string;
-  email: string;
-  address: string;
-  birthDate: string; 
+  name: string;    
+  phone: string;       
+  email?: string | null;
+  address?: string | null;
+  birthDate?: string | null;
   favorite: boolean;
-  company: string;
-  position: string;
-  notes: string;
-  category: Category;
+  company?: string | null;
+  position?: string | null;
+  notes?: string | null;
+  category: Category; 
 }
