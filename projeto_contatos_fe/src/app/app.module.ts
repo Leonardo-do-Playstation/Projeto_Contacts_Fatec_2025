@@ -13,6 +13,7 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ContactsComponent } from './components/contacts/contacts.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
     RouterModule,
     FormsModule, 
     CommonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

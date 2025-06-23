@@ -3,3 +3,56 @@
     <div class="card-body">
       <h1 class="card-title">Favoritos</h1>
       <p class="card-text">{{ title }}</p>
+
+      <div *ngIf="favoriteContacts.length; else noFavorites">
+
+        <div class="accordion" id="favoritesAccordion">
+          <div
+            class="accordion-item mb-2"
+            *ngFor="let contact of favoriteContacts; let i = index"
+          >
+            <h2 class="accordion-header" id="favHeading{{i}}">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#favCollapse' + i"
+                aria-expanded="false"
+                [attr.aria-controls]="'favCollapse' + i"
+              >
+                {{ contact.name }}
+                <span class="ms-2" title="Favorito" style="color: gold;">&#9733;</span>
+              </button>
+            </h2>
+            <div
+              [id]="'favCollapse' + i"
+              class="accordion-collapse collapse"
+              [attr.aria-labelledby]="'favHeading' + i"
+              data-bs-parent="#favoritesAccordion"
+            >
+              <div class="accordion-body">
+                <p><strong>Telefone:</strong> {{ contact.phone && contact.phone.trim() ? contact.phone.trim() : 'Dado não informado' }}</p>
+                <p><strong>E-mail:</strong> {{ contact.email && contact.email.trim() ? contact.email.trim() : 'Dado não informado' }}</p>
+                <p><strong>Data de nascimento:</strong> {{ contact.birthDate ? (contact.birthDate | date:'dd/MM/yyyy') : 'Dado não informado' }}</p>
+                <p><strong>Endereço:</strong> {{ contact.address && contact.address.trim() ? contact.address.trim() : 'Dado não informado' }}</p>
+                <p><strong>Categoria:</strong> {{ contact.category.name || 'Dado não informado' }}</p>
+                <p><strong>Empresa:</strong> {{ contact.company && contact.company.trim() ? contact.company.trim() : 'Dado não informado' }}</p>
+                <p><strong>Cargo:</strong> {{ contact.position && contact.position.trim() ? contact.position.trim() : 'Dado não informado' }}</p>
+                <p><strong>Observações:</strong> {{ contact.notes && contact.notes.trim() ? contact.notes.trim() : 'Dado não informado' }}</p>
+
+                <button class="btn btn-sm btn-outline-warning" (click)="onUnfavorite(contact)">
+                  Desfavoritar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <ng-template #noFavorites>
+        <div class="text-muted mt-3">Nenhum contato favoritado.</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

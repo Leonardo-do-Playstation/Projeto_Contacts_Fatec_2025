@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 mb-5">
   <div class="card shadow-sm">
     <div class="card-body">
       <h1 class="card-title">Página Inicial</h1>
@@ -6,4 +6,7 @@
     </div>
   </div>
 </div>
-<app-contact></app-contact>
+<app-contact
+  [categories]="categories"
+  (saveEventEmitter)="onSaveContact($event)">
+</app-contact>

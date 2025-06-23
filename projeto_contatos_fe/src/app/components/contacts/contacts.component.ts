@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Contact } from '../../interfaces/Contact';
 import { Category } from '../../interfaces/Category';
+import { ContactService } from '../../services/contact.service';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-contacts',
@@ -8,86 +10,76 @@ import { Category } from '../../interfaces/Category';
   styleUrls: ['./contacts.component.css'],
   standalone: false
 })
-export class ContactsComponent {
-  title = "Aqui você pode visualizar todos os seus contatos cadastrados.";
-
-  categories: Category[] = [
-    { id: 1, name: 'Família' },
-    { id: 2, name: 'Trabalho' },
-    { id: 3, name: 'Amigos' },
-    { id: 4, name: 'Outros'}
-  ];
+export class ContactsComponent implements OnInit {
+  title = 'Aqui você pode visualizar todos os seus contatos cadastrados.';
+  contacts: Contact[] = [];
+  categories: Category[] = [];
 
   selectedCategoryId: number = 0;
+  selectedContact: Contact | null = null;  // Mudei para null quando não está editando
 
-  contacts: Contact[] = [
-    {
-      id: 1,
-      name: 'Maria Silva',
-      phone: '11999998888',
-      email: 'maria@email.com',
-      address: 'Rua A, 123',
-      birthDate: '1990-01-01',
-      favorite: true,
-      company: 'Empresa X',
-      position: 'Analista',
-      notes: 'Contato importante',
-      category: { id: 1, name: 'Família' }
-    },
-    {
-      id: 2,
-      name: 'João Souza',
-      phone: '11888887777',
-      email: 'joao@email.com',
-      address: 'Rua B, 456',
-      birthDate: '1985-06-15',
-      favorite: false,
-      company: 'Empresa Y',
-      position: 'Gerente',
-      notes: 'Possui restrição de horário',
-      category: { id: 2, name: 'Trabalho' }
-    },
-    {
-      id: 3,
-      name: 'Ana Costa',
-      phone: '11777776666',
-      email: 'ana@email.com',
-      address: 'Rua C, 789',
-      birthDate: '1995-03-10',
-      favorite: true,
-      company: 'Empresa Z',
-      position: 'Dev',
-      notes: 'Prefere contato via WhatsApp',
-      category: { id: 3, name: 'Amigos' }
-    }
-  ];
+  constructor(
+    private contactService: ContactService,
+    private categoryService: CategoryService
+  ) {}
 
-  selectedContact: Contact = this.createEmptyContact();
+  ngOnInit(): void {
+    this.loadContacts();
+    this.loadCategories();
+  }
 
-  get filteredContacts(): Contact[] {
-    if (this.selectedCategoryId === 0) return this.contacts;
-    return this.contacts.filter(c => c.category.id === this.selectedCategoryId);
+get filteredContacts(): Contact[] {
+  return this.contacts.filter(contact => {
+    const categoryId = contact.category?.id || 0;
+    return this.selectedCategoryId === 0 || categoryId === this.selectedCategoryId;
+  });
+}
+
+  loadContacts(): void {
+    this.contactService.getContacts().subscribe((data) => {
+      this.contacts = data.filter(c => !c.favorite);
+    });
+  }
+
+  loadCategories(): void {
+    this.categoryService.getCategories().subscribe((cats) => {
+      this.categories = cats;
+    });
   }
 
   onEdit(contact: Contact) {
     this.selectedContact = { ...contact };
   }
 
+  clearSelectedContact() {
+    this.selectedContact = null;
+  }
+
   onToggleFavorite(contact: Contact) {
     contact.favorite = !contact.favorite;
+    this.contactService.update(contact).subscribe(() => {
+      this.loadContacts();
+    });
   }
 
   onSave(contact: Contact) {
     if (contact.id) {
-      const index = this.contacts.findIndex(c => c.id === contact.id);
-      if (index !== -1) {
-        this.contacts[index] = contact;
-      }
+      this.contactService.update(contact).subscribe(() => {
+        this.loadContacts();
+        this.clearSelectedContact();
+      });
     } else {
-      contact.id = this.contacts.length > 0 ? Math.max(...this.contacts.map(c => c.id ?? 0)) + 1 : 1;
-      this.contacts.push(contact);
+      this.contactService.create(contact).subscribe(() => {
+        this.loadContacts();
+        this.clearSelectedContact();
+      });
     }
-    this.selectedContact = this.createEmptyContact();
+  }
+
+  onDelete(contact: Contact) {
+    if (confirm(`Deseja realmente remover ${contact.name}?`)) {
+      this.contactService.delete(contact.id!).subscribe(() => this.loadContacts());
+    }
   }
 
   private createEmptyContact(): Contact {
