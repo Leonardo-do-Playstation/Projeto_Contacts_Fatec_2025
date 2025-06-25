@@ -8,12 +8,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { RouterModule } from '@angular/router';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { ContactsComponent } from './components/contacts/contacts.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,9 +27,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule,
-    FormsModule, 
-    CommonModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [],

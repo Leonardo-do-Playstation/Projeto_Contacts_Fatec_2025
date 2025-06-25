@@ -31,12 +31,6 @@ public class Contact {
     private String position;
     private String notes;
 
-    public Contact(Integer id, String name, String phone) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-    }
-
     public Contact(Integer id, String name, String phone, String email, String address,
                    String birthDate, Category category, boolean favorite,
                    String company, String position, String notes) {

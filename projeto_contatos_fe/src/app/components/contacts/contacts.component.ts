@@ -81,20 +81,4 @@ get filteredContacts(): Contact[] {
       this.contactService.delete(contact.id!).subscribe(() => this.loadContacts());
     }
   }
-
-  private createEmptyContact(): Contact {
-    return {
-      id: undefined,
-      name: '',
-      phone: '',
-      email: '',
-      address: '',
-      birthDate: '',
-      favorite: false,
-      company: '',
-      position: '',
-      notes: '',
-      category: { id: 0, name: '' }
-    };
-  }
 }

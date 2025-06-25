@@ -1,3 +1,4 @@
+
 <form #contactForm="ngForm" (ngSubmit)="save(contactForm)" novalidate>
   <div class="row mb-4">
     <div class="col-md-6">
@@ -43,7 +44,7 @@
   <div class="mb-3">
     <label class="form-label">Categoria</label>
     <select class="form-select" [(ngModel)]="categoryId" name="categoryId" required #categoryIdModel="ngModel">
-      <option [ngValue]="null" disabled selected>Selecione uma categoria</option>
+      <option [ngValue]="null" disabled>Selecione uma categoria</option>
       <option *ngFor="let cat of categories" [ngValue]="cat.id">{{ cat.name }}</option>
     </select>
   </div>

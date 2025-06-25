@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Contact } from '../../interfaces/Contact';
 import { ContactService } from '../../services/contact.service';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { Category } from '../../interfaces/Category';
   styleUrls: ['./home.component.css'],
   standalone: false
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   categories: Category[] = [];
 
   constructor(
