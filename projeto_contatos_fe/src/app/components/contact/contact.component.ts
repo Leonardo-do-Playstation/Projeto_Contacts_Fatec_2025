@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
   standalone: false
 })
 export class ContactComponent implements OnChanges {
+ 
   @Input() contact: Contact = this.createEmptyContact();
   
   @Input() categories: Category[] = [];
